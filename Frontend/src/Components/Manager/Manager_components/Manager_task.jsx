@@ -104,27 +104,30 @@ const Manager_task = () => {
       <div className="table-task-performed"> <h1 className='text-center font-bold text-xl mt-[30px]'>Task List</h1>
         <table className='mt-[30px] w-full'>
           <thead>
-            <tr className='bg-blue-400'>
-              <td className='items-center  w-[70px] text-md font-bold text-center p-2 border-blue-400 border'>Sr no.</td>
-              <td className='items-center text-md font-bold text-center p-2 border-blue-400 border'>Title</td>
-              <td className='items-center text-md font-bold text-center p-2 border-blue-400 border'>Details</td>
-              <td className='items-center text-md font-bold text-center p-2 border-blue-400 border'>Assign by</td>
-              <td className='items-center text-md font-bold text-center p-2 border-blue-400 border'>Woring by</td>
-              <td className='items-center text-md font-bold text-center p-2 border-blue-400 border'>Status</td>
+            <tr className='bg-blue-400 h-[50px]'>
+              <td className='items-center  w-[60px] text-md font-bold text-center'>Sr no.</td>
+              <td className='items-center text-md font-bold p-2 w-[140px]'>Title</td>
+              <td className='items-center text-md font-bold p-2 '>Details</td>
+              <td className='items-center text-md font-bold p-2 w-[140px]'>Assign by</td>
+              <td className='items-center text-md font-bold p-2 w-[140px]'>Woring by</td>
+              <td className='items-center text-md font-bold p-2 w-[100px]'>Status</td>
             </tr>
           </thead>
 
           <tbody>
             {Task.map((t, i) => {
-              return <tr className=''>
-                <td className='border-blue-400 border text-center p-1'>{i + 1}</td>
-                <td className='border-blue-400 border p-1'>{t.Title}</td>
-                <td className='border-blue-400 border p-1'>{t.Detail}</td>
-                <td className='border-blue-400 border p-1'>{t.Assign_by}</td>
-                <td className='border-blue-400 border p-1 '>{t.Working_by}</td>
-                {t.Status === "Pending" && <td className='border-blue-400 border p-1 text-center text-gray-500'>{t.Status}</td>}
-                {t.Status === "Working" && <td className='border-blue-400 border p-1 text-center text-blue-500'>{t.Status}</td>}
-                {t.Status === "Done" && <td className='border-blue-400 border p-1 text-center text-green-500'>{t.Status}</td>}
+              return <tr className='my-2 border-blue-400 h-[50px] border-b-2'>
+                <td className=' text-center p-1'>{i + 1}</td>
+                <td className=' p-1'>{t.Title}</td>
+                <td className=' p-1'>{t.Detail}</td>
+                <td className='p-1'>{t.Assign_by}</td>
+                <td className=' p-1 '>{t.Working_by}</td>
+                {t.Status === "Pending" && <td className='text-center rounded-lg text-gray-500 flex items-center gap-2 justify-center mt-3'>
+                  <div className="circle h-[10px] w-[10px] bg-gray-500 rounded-[50px]"></div> {t.Status}</td>}
+                {t.Status === "Working" && <td className='text-center rounded-lg text-blue-500 flex items-center gap-2 justify-center mt-3'>
+                  <div className="circle h-[10px] w-[10px] bg-blue-500 rounded-[50px]"></div>{t.Status}</td>}
+                {t.Status === "Done" && <td className='text-center rounded-lg text-green-500 flex items-center gap-2 justify-center mt-3'>
+                  <div className="circle h-[10px] w-[10px] bg-green-500 rounded-[50px]"></div>{t.Status}</td>}
 
               </tr>
             })
