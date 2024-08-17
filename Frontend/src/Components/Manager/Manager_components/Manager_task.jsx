@@ -57,7 +57,7 @@ const Manager_task = () => {
       <div className="body mt-[30px] text-center">
         <h1 className='text-2xl font-bold'>Task Menu</h1>
 
-        <div className="task-box grid grid-cols-2 md:grid-cols-4 gap-[40px] mt-[30px] ">
+        <div className="task-box grid grid-cols-2 md:grid-cols-4 gap-[40px] mt-[30px]">
           <div className="total-task bg-gray-600  font-bold  p-3 rounded-lg  cursor-pointer    hover:bg-blue-600 hover:ease-in-out transition hover:scale-105">Total task
             <h1 className='my-3  font-semibold'>Fetch from db</h1>
           </div>
@@ -79,7 +79,8 @@ const Manager_task = () => {
 
 
       {/* Add task */}
-      <div onClick={() => { setaddForm(!addForm) }} className="add_task cursor-pointer mt-[30px] p-3 font-bold w-fit rounded-lg bg-gray-600      hover:rounded-[50px] hover:ease-in-out transition hover:scale-105  hover:bg-blue-600 ">Add new task</div>
+      <div onClick={() => { setaddForm(!addForm) }}
+        className="add_task cursor-pointer mt-[30px] p-3 font-bold w-fit rounded-lg bg-gray-600      hover:rounded-[50px] hover:ease-in-out transition hover:scale-105  hover:bg-blue-600 ">Add new task</div>
       {addForm === true &&
         <div className='Addform absolute backdrop-blur-sm top-[0] h-fit w-[100%]'>
           <form onSubmit={HandleSubmit} className='backdrop-blur-0 flex flex-col items-center bg-gray-600 rounded-lg mt-[5%] w-[50%] mx-auto'>
@@ -110,7 +111,8 @@ const Manager_task = () => {
               <td className='items-center text-md font-bold p-2 '>Details</td>
               <td className='items-center text-md font-bold p-2 w-[140px]'>Assign by</td>
               <td className='items-center text-md font-bold p-2 w-[140px]'>Woring by</td>
-              <td className='items-center text-md font-bold p-2 w-[100px]'>Status</td>
+              <td className='items-center text-md font-bold p-2 w-[100px] text-center'>Status</td>
+              <td className='items-center text-md font-bold p-2 w-[100px] text-center'>Action</td>
             </tr>
           </thead>
 
@@ -129,6 +131,13 @@ const Manager_task = () => {
                 {t.Status === "Done" && <td className='text-center rounded-lg text-green-500 flex items-center gap-2 justify-center mt-3'>
                   <div className="circle h-[10px] w-[10px] bg-green-500 rounded-[50px]"></div>{t.Status}</td>}
 
+
+                <td className='p-1'>
+                  <div className="flex gap-2">
+                    <div className="p-2 bg-green-500 rounded-lg cursor-pointer hover:bg-green-700 hover:ease-in-out transition hover:scale-105">Edit</div>
+                    <div className="p-2 bg-red-500 rounded-lg cursor-pointer hover:bg-red-700 hover:ease-in-out transition hover:scale-105 ">Delete</div>
+                  </div>
+                </td>
               </tr>
             })
             }
