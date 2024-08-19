@@ -26,19 +26,13 @@ app.post("/login", async (re, res) => {
         .then(user => {
             if (!user) {
                 console.log("No user found")
-                return res.json({ message: "No user found" })
-            }
-            if (user) {
+            } else {
                 console.log("User found")
-
                 if (user.Role === Role && user.Password === Password) {
                     console.log("Successfully log in")
-                    // const id = user.data._id
-                    // const token = jwt.sign({ ID: user._id, Role: user.Role, Name: user.Name }, 'secretkey')
-                    return res.json(user), { message: "Successfully Logged in" };
+                    res.json(user);
                 } else { console.log("invalid role or Password`") }
             }
-            // thn end
         })
 })
 
@@ -49,8 +43,8 @@ app.get('/GetUser', (req, res) => {
         .catch(err => res.json(err))
 })
 
-app.post('/DelUser:id', async (req, res) => {
-    const { userid } = req.body;
+app.post('/DelUser/:id', async (req, res) => {
+    const userid = req.body;
     try {
         AddUserModel.deleteOne({ _id: userid })
         res.send({ status: "ok", data: "deleted" })

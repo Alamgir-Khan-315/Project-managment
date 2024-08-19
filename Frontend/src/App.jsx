@@ -22,9 +22,7 @@ export default function App() {
 
           {/* Pages */}
           <Route path='/Admin_home/:id' element={<Admin_home />} />
-
           <Route path='/Manager_home/:id' element={<Manager_home />} />
-
           <Route path='/User_home/:id' element={<User_home />} />
 
         </Routes>

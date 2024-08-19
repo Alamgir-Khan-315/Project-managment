@@ -37,6 +37,7 @@ const Log_in = () => {
         const id = res.data._id
         landing(id)
         alert("Log in successful")
+
       })
       .catch((err) => {
         console.log(err)

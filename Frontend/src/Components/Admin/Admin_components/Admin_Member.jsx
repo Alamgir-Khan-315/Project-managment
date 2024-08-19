@@ -19,21 +19,16 @@ const Admin_Member = () => {
     FetchUser()
   }, [])
 
-  const DelUser = (id, name) => {
-    console.log("ufff" + name)
-  }
 
-  // const DelUser = ((Id, name) => {
-  //   alert("button");
-  //   if (window.confirm('Are to sure you wanna delete ${name}')) {
-  //     axios.post(`http://localhost:3001/DelUser/${Id}`)
-  //       .then(res => {
-  //         setUsers(users.filter(user => user._id !== userId));
-  //         FetchUser()
-  //       })
-  //       .catch(error => console.error('Error deleting user:', error));
-  //   }
-  // })
+  const DelUser = ((Id, name) => {
+    if (window.confirm(`Are to sure you wanna delete ${name}`)) {
+      axios.post(`http://localhost:3001/DelUser/${Id}`)
+        .then(res => {
+          setUser(users.filter(user => user._id !== Id));
+        })
+        .catch(error => console.error('Error deleting user:', error));
+    }
+  })
 
   return (
     <div className='Admin_member container mx-auto '>
@@ -89,7 +84,7 @@ const Admin_Member = () => {
                       <td>
                         <div className="btn flex gap-2">
                           <button className='p-1 rounded-lg w-full text-center bg-green-500 hover:bg-green-600 hover:ease-in-out transition hover:scale-105'>Edit</button>
-                          <button className='p-1 rounded-lg text-center   bg-red-500 hover:bg-red-600 hover:ease-in-out transition hover:scale-105'>Delete</button>
+                          <button onClick={(e) => DelUser(user._id, user.Name)} className='p-1 rounded-lg text-center   bg-red-500 hover:bg-red-600 hover:ease-in-out transition hover:scale-105'>Delete</button>
                         </div>
                       </td>
                     </tr>
