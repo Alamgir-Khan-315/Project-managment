@@ -24,19 +24,19 @@ app.post("/login", async (re, res) => {
     const { Role, Name, Password } = re.body;
     AddUserModel.findOne({ Name: Name })
         .then(user => {
+            if (!user) {
+                console.log("No user found")
+                return res.json({ message: "No user found" })
+            }
             if (user) {
                 console.log("User found")
 
                 if (user.Role === Role && user.Password === Password) {
-                    // console.log("Successfully log in")
+                    console.log("Successfully log in")
                     // const id = user.data._id
                     // const token = jwt.sign({ ID: user._id, Role: user.Role, Name: user.Name }, 'secretkey')
-                    return res.json(user);
+                    return res.json(user), { message: "Successfully Logged in" };
                 } else { console.log("invalid role or Password`") }
-            }
-            else {
-                console.log("No user found")
-                return res.json({ message: "No user found" });
             }
             // thn end
         })

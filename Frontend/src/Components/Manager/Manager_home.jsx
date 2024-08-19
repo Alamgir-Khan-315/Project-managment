@@ -59,9 +59,11 @@ const Manager_home = () => {
                 </div>
 
                 <div className="log-out flex items-center gap-3">
-                    <div onClick={Logout} className="button bg-blue-400 p-2 font-semibold text-black rounded-[50px]     md:p-3 hover:bg-blue-500 hover:ease-in-out transition hover:scale-105">
-                        <Link to="/"><div className="log-out flex items-center gap-2 font-semibold">Log out <RiLogoutBoxLine /></div></Link>
-                    </div>
+                    <Link to="/">
+                        <div onClick={Logout} className="button bg-blue-400 p-2 font-semibold text-black rounded-[50px]     md:p-3 hover:bg-blue-500 hover:ease-in-out transition hover:scale-105">
+                            <div className="log-out flex items-center gap-2 font-semibold">Log out <RiLogoutBoxLine /></div>
+                        </div>
+                    </Link>
                 </div>
 
             </div>
@@ -97,7 +99,7 @@ const Manager_home = () => {
             <div className="home-2 hidden md:flex">
                 <div className="body flex flex-col w-[200px] bg-gray-800 h-screen p-8  justify-between items-center">
                     <div className="username">
-                        <div className="username">Hello {userName}!</div>
+                        <div className="username">Hello ! <br /> {userName}</div>
                     </div>
 
                     <div className="icon hidden md:flex h-[50%] w-[130px] text-center items-center">
@@ -127,9 +129,11 @@ const Manager_home = () => {
                     </div>
 
                     <div className="log-out flex items-center gap-3">
-                        <div onClick={Logout} className="button bg-blue-400 p-2 font-semibold text-black rounded-[50px]     md:p-3 hover:bg-blue-500 hover:ease-in-out transition hover:scale-105">
-                            <Link to="/"><div className="log-out flex items-center gap-2 font-semibold">Log out <RiLogoutBoxLine /></div></Link>
-                        </div>
+                        <Link to="/">
+                            <div onClick={Logout} className="button bg-blue-400 p-2 font-semibold text-black rounded-[50px]     md:p-3 hover:bg-blue-500 hover:ease-in-out transition hover:scale-105">
+                                <div className="log-out flex items-center gap-2 font-semibold">Log out <RiLogoutBoxLine /></div>
+                            </div>
+                        </Link>
                     </div>
 
                 </div>

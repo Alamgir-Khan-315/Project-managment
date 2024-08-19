@@ -80,7 +80,7 @@ const Manager_task = () => {
 
       {/* Add task */}
       <div onClick={() => { setaddForm(!addForm) }}
-        className="add_task cursor-pointer mt-[30px] p-3 font-bold w-fit rounded-lg bg-gray-600      hover:rounded-[50px] hover:ease-in-out transition hover:scale-105  hover:bg-blue-600 ">Add new task</div>
+      className="add_task cursor-pointer mt-[30px] p-3 font-bold w-fit rounded-lg bg-gray-600      hover:rounded-[50px] hover:ease-in-out transition hover:scale-105  hover:bg-blue-600 ">Add new task</div>
       {addForm === true &&
         <div className='Addform absolute backdrop-blur-sm top-[0] h-fit w-[100%]'>
           <form onSubmit={HandleSubmit} className='backdrop-blur-0 flex flex-col items-center bg-gray-600 rounded-lg mt-[5%] w-[50%] mx-auto'>

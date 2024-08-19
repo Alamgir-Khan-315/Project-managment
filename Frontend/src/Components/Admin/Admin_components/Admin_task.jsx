@@ -26,16 +26,23 @@ const Admin_task = () => {
       <div className="body mt-[30px] text-center">
         <h1 className='text-2xl font-bold'>Task Menu</h1>
 
-        <div className="task-box grid grid-cols-3 gap-[20px] mt-[30px] ">
+        <div className="task-box grid grid-cols-2 md:grid-cols-4 gap-[40px] mt-[30px]">
           <div className="total-task bg-gray-600  font-bold  p-3 rounded-lg  cursor-pointer    hover:bg-blue-600 hover:ease-in-out transition hover:scale-105">Total task
             <h1 className='my-3  font-semibold'>Fetch from db</h1>
           </div>
-          <div className="com-task bg-gray-600  font-bold p-3 rounded-lg cursor-pointer    hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Completed task
-            <h1 className='my-3 font-semibold'>Fetch from db</h1>
-          </div>
+
           <div className="pend-task bg-gray-600 font-bold  p-3 rounded-lg  cursor-pointer  hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Pending task
             <h1 className='my-3 font-semibold'>Fetch from db</h1>
           </div>
+
+          <div className="com-task bg-gray-600  font-bold p-3 rounded-lg cursor-pointer    hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Working on
+            <h1 className='my-3 font-semibold'>Fetch from db</h1>
+          </div>
+
+          <div className="com-task bg-gray-600  font-bold p-3 rounded-lg cursor-pointer    hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Completed task
+            <h1 className='my-3 font-semibold'>Fetch from db</h1>
+          </div>
+
         </div>
       </div>
 

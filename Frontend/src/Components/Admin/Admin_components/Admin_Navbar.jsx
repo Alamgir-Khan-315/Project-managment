@@ -60,9 +60,11 @@ const Co_Navbar = () => {
                 </div>
 
                 <div className="log-out flex items-center gap-3">
-                    <div onClick={Logout} className="button bg-blue-400 p-2 font-semibold text-black rounded-[50px]     md:p-3 hover:bg-blue-500 hover:ease-in-out transition hover:scale-105">
-                        <Link to="/"><div className="log-out flex items-center gap-2 font-semibold">Log out <RiLogoutBoxLine /></div></Link>
-                    </div>
+                    <Link to="/">
+                        <div onClick={Logout} className="button bg-blue-400 p-2 font-semibold text-black rounded-[50px]     md:p-3 hover:bg-blue-500 hover:ease-in-out transition hover:scale-105">
+                            <div className="log-out flex items-center gap-2 font-semibold">Log out <RiLogoutBoxLine /></div>
+                        </div>
+                    </Link>
                 </div>
 
             </div>
