@@ -37,27 +37,10 @@ const Co_Navbar = () => {
 
 
     return (
-        <div className='co-navbar container mx-auto'>
+        <div className='co-navbar'>
 
-            <div className="body flex justify-between p-2 items-center">
-                <div className="username">Hello {userName}!</div>
-
-                <div className="icon hidden md:flex">
-                    <ul className='list-none inline-flex gap-5'>
-                        <li onClick={() => setNavbar("Dashboard")} className='cursor-pointer p-2 rounded-lg  '>
-                            <h2 className='items-center gap-2 hidden md:flex'>Dashboard <MdAssessment /></h2> {Navbar === "Dashboard" ? <MdOutlineHorizontalRule className='w-full size-6 text-blue-500' /> : <></>}</li>
-
-                        <li onClick={() => setNavbar("Task")} className='cursor-pointer p-2 rounded-lg '>
-                            <h2 className='items-center gap-2 hidden md:flex'>Task <FaTasks /> </h2> {Navbar === "Task" ? <MdOutlineHorizontalRule className='w-full size-6 text-blue-500' /> : <></>}</li>
-
-                        <li onClick={() => setNavbar("Chat")} className='cursor-pointer p-2 rounded-lg '>
-                            <h2 className=' items-center gap-2 hidden md:flex'>Chat <MdMessage /> </h2> {Navbar === "Chat" ? <MdOutlineHorizontalRule className='w-full size-6 text-blue-500' /> : <></>}</li>
-
-                        <li onClick={() => setNavbar("Member")} className='cursor-pointer p-2 rounded-lg'>
-                            <h2 className=' items-center gap-2 hidden md:flex'>Members <MdRememberMe /> </h2> {Navbar === "Member" ? <MdOutlineHorizontalRule className='w-full size-6 text-blue-500' /> : <></>} </li>
-                    </ul>
-
-                </div>
+            <div className="body flex md:hidden justify-between p-2 items-center">
+                <div className="username text-xl font-bold">Hello {userName}!</div>
 
                 <div className="log-out flex items-center gap-3">
                     <Link to="/">
@@ -71,6 +54,7 @@ const Co_Navbar = () => {
 
             {/* mob nav */}
             <div className='flex md:hidden justify-center'>
+
                 <ul className='list-none inline-flex text-xl gap-5'>
                     <li onClick={() => setNavbar("Dashboard")} className='cursor-pointer p-2 rounded-lg  '>
                         <MdAssessment />{Navbar === "Dashboard" ? <MdOutlineHorizontalRule className='w-full size-6 text-blue-500' /> : <></>}</li>
@@ -87,12 +71,66 @@ const Co_Navbar = () => {
             </div>
 
             {/* Home components */}
-            <div className="home-render">
+            <div className="home-render flex md:hidden w-[90%] mx-auto ">
                 {Navbar === "Dashboard" && <H_dashboard />}
                 {Navbar === "Task" && <H_task />}
                 {Navbar === "Chat" && <H_chat />}
                 {Navbar === "Member" && <H_member />}
             </div>
+
+
+            {/* New navbar */}
+            <div className="home-2 hidden md:flex">
+                <div className="body flex flex-col w-[200px] bg-gray-800 h-screen p-8  justify-between items-center">
+                    <div className="username">
+                        <div className="username text-2xl font-bold">Hello ! <br /> {userName}</div>
+                    </div>
+
+                    <div className="icon hidden md:flex h-[50%] w-[130px] text-center items-center">
+                        <ul className='list-none w-[100px] text-center justify-center'>
+                            <li onClick={() => setNavbar("Dashboard")} className='cursor-pointer p-2 items-center gap-2 hidden md:flex  rounded-lg '>
+                                {Navbar === "Dashboard" ? <h2 className='items-center gap-2 hidden md:flex border border-blue-500 p-2 rounded-lg scale-105'>Dashboard <MdAssessment /></h2>
+                                    : <h2 className='items-center gap-2 hidden md:flex'>Dashboard <MdAssessment /></h2>
+                                }
+                            </li>
+
+                            <li onClick={() => setNavbar("Task")} className='items-center gap-2 hidden md:flex p-2  rounded-lg  '>
+                                {Navbar === "Task" ? <h2 className='items-center gap-2 hidden md:flex border border-blue-500 p-2 rounded-lg ease-in-out transition scale-110'>Task <FaTasks /> </h2>
+                                    : <h2 className='items-center gap-2 hidden md:flex'>Task <FaTasks /> </h2>
+                                }</li>
+
+                            <li onClick={() => setNavbar("Chat")} className='cursor-pointer items-center gap-2 hidden md:flex p-2  rounded-lg'>
+                                {Navbar === "Chat" ? <h2 className='items-center gap-2 hidden md:flex border border-blue-500 p-2 rounded-lg scale-105'>Chat <MdMessage /> </h2>
+                                    : <h2 className=' items-center gap-2 hidden md:flex'>Chat <MdMessage /> </h2>
+                                }</li>
+
+                            <li onClick={() => setNavbar("Member")} className='cursor-pointer items-center gap-2 hidden md:flex p-2   rounded-lg'>
+                                {Navbar === "Member" ? <h2 className='items-center gap-2 hidden md:flex border border-blue-500 p-2 rounded-lg scale-105'>Members <MdRememberMe /> </h2>
+                                    : <h2 className=' items-center gap-2 hidden md:flex'>Members <MdRememberMe /> </h2>
+                                }</li>
+                        </ul>
+
+                    </div>
+
+                    <div className="log-out flex items-center gap-3">
+                        <Link to="/">
+                            <div onClick={Logout} className="button bg-blue-400 p-2 font-semibold text-black rounded-[50px]     md:p-3 hover:bg-blue-500 hover:ease-in-out transition hover:scale-105">
+                                <div className="log-out flex items-center gap-2 font-semibold">Log out <RiLogoutBoxLine /></div>
+                            </div>
+                        </Link>
+                    </div>
+
+                </div>
+
+                {/* Home components */}
+                <div className="home-render md:w-[75%] mx-auto ">
+                    {Navbar === "Dashboard" && <H_dashboard />}
+                    {Navbar === "Task" && <H_task />}
+                    {Navbar === "Chat" && <H_chat />}
+                    {Navbar === "Member" && <H_member />}
+                </div>
+            </div>
+
         </div>
     )
 }

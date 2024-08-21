@@ -88,7 +88,7 @@ const Manager_home = () => {
 
 
             {/* mob Home components */}
-            <div className="home-render flex    md:hidden">
+            <div className="home-render flex w-[90%] mx-auto   md:hidden">
                 {Navbar === "Dashboard" && <M_dashboard />}
                 {Navbar === "Task" && <M_task />}
                 {Navbar === "Chat" && <M_chat />}
@@ -138,7 +138,7 @@ const Manager_home = () => {
 
                 </div>
 
-                <div className="home-render mx-auto mt-[20px] md:min-w-[1000px] md:max-w-[1200px]">
+                <div className="home-render mx-auto mt-[20px] md:w-[75%]">
                     {Navbar === "Dashboard" && <M_dashboard />}
                     {Navbar === "Task" && <M_task />}
                     {Navbar === "Chat" && <M_chat />}

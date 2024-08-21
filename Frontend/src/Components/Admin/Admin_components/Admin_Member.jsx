@@ -41,7 +41,7 @@ const Admin_Member = () => {
         <div onClick={() => { setaddForm(!addForm) }}
           className="add_members cursor-pointer mt-[30px] p-3 font-bold w-fit rounded-lg bg-gray-600      hover:rounded-[50px] hover:ease-in-out transition hover:scale-105  hover:bg-blue-600 ">Add a manager</div>
         {addForm === true &&
-          <div className='Addform absolute backdrop-blur-sm top-[0] h-fit w-[100%]'>
+          <div className='Addform absolute backdrop-blur-sm top-[0] h-fit md:min-w-[80%]'>
             <form className='backdrop-blur-0 flex flex-col items-center bg-gray-600 rounded-lg mt-[5%] w-[50%] mx-auto'>
 
               <div className="title w-full px-[30px] mt-[10px] relative flex justify-between items-center">

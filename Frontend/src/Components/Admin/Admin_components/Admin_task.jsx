@@ -6,9 +6,6 @@ const Admin_Project = () => {
 
   const ProjectStatus = "Pending";
   const [Project, setProject] = useState([])
-  const [addForm, setaddForm] = useState(false)
-  const [Title, setTitle] = useState("");
-  const [Detail, setDetail] = useState("");
 
   const FetchProject = () => {
     axios.get('http://localhost:3001/GetProject')
@@ -49,29 +46,6 @@ const Admin_Project = () => {
         </div>
       </div>
 
-
-      {/* Add Project */}
-      <div onClick={() => { setaddForm(!addForm) }}
-        className="add_Project cursor-pointer mt-[30px] p-3 font-bold w-fit rounded-lg bg-gray-600      hover:rounded-[50px] hover:ease-in-out transition hover:scale-105  hover:bg-blue-600 ">Add new Project</div>
-      {addForm === true &&
-        <div className='Addform absolute backdrop-blur-sm top-[0] h-fit w-[100%]'>
-          <form className='backdrop-blur-0 flex flex-col items-center bg-gray-600 rounded-lg mt-[5%] w-[50%] mx-auto'>
-
-            <div className="title w-full px-[30px] mt-[10px] relative flex justify-between items-center">
-              <h1 className='font-bold text-2xl pt-[20px]'>Add new project</h1>
-              <div onClick={() => { setaddForm(!addForm) }}
-                className="btn absolute right-[20px] top-[15px] p-2 px-3 w-fit rounded-lg bg-red-500 hover:bg-red-600 ">X</div>
-            </div>
-
-            <input className='mt-[30px] w-[80%] p-2 rounded-lg bg-gray-700 text-gray-400' type="text" readOnly />
-            <input onChange={(e) => setTitle(e.target.value)} className='mt-[30px] w-[80%] p-2 rounded-lg bg-gray-700' type="text" placeholder='Title' />
-            <textarea className='my-[20px] w-[80%] p-2 rounded-lg bg-gray-700'
-              onChange={(e) => setDetail(e.target.value)} placeholder='Project details' id="" rows={3}></textarea>
-
-            <button type='submit' className='bg-green-600 p-2 px-5 rounded-lg my-[20px]     hover:ease-in-out transition hover:scale-105 hover:bg-green-700'>Add</button>
-          </form>
-        </div>
-      }
 
 
       {/* table */}
