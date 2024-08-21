@@ -74,7 +74,7 @@ app.post('/AddTask', (re, res) => {
         .catch(err => res.json(err))
 })
 
-app.get('/GetTask', (req, res) => {
+app.get('/GetProject', (req, res) => {
     TaskModel.find()
         .then(tasks => res.json(tasks))
         .catch(err => res.json(err))

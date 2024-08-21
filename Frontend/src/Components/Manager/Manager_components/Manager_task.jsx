@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 
-const Manager_task = () => {
+const Manager_Project = () => {
 
   const [addForm, setaddForm] = useState(false)
   const [userName, setUserName] = useState('');
   const [Title, setTitle] = useState("");
   const [Detail, setDetail] = useState("");
-  const [Task, setTask] = useState([])
-  const TaskStatus = "Pending";
+  const [Project, setProject] = useState([])
+  const ProjectStatus = "Pending";
 
   // user data fetch
   const { id } = useParams();
@@ -24,53 +24,53 @@ const Manager_task = () => {
 
   const HandleSubmit = (event) => {
     event.preventDefault();
-    axios.post("http://localhost:3001/AddTask", {
+    axios.post("http://localhost:3001/AddProject", {
       Title,
       Detail,
       userName,
-      TaskStatus
+      ProjectStatus
     })
       .then((res) => {
         console.log(res);
         alert("Success")
         setaddForm(!addForm)
-        FetchTask()
+        FetchProject()
       })
       .catch((err) => console.log(err));
   };
 
-  const FetchTask = () => {
-    axios.get('http://localhost:3001/GetTask')
-      .then(tasks => {
-        console.log(tasks.data);
-        setTask(tasks.data)
+  const FetchProject = () => {
+    axios.get('http://localhost:3001/GetProject')
+      .then(Projects => {
+        console.log(Projects.data);
+        setProject(Projects.data)
       })
       .catch(err => console.log(err))
   }
 
   useEffect(() => {
-    FetchTask()
+    FetchProject()
   }, [])
 
   return (
     <div className='container mx-auto relative'>
       <div className="body mt-[30px] text-center">
-        <h1 className='text-2xl font-bold'>Task Menu</h1>
+        <h1 className='text-2xl font-bold'>Project Menu</h1>
 
-        <div className="task-box grid grid-cols-2 md:grid-cols-4 gap-[40px] mt-[30px]">
-          <div className="total-task bg-gray-600  font-bold  p-3 rounded-lg  cursor-pointer    hover:bg-blue-600 hover:ease-in-out transition hover:scale-105">Total task
+        <div className="Project-box grid grid-cols-2 md:grid-cols-4 gap-[40px] mt-[30px]">
+          <div className="total-Project bg-gray-600  font-bold  p-3 rounded-lg  cursor-pointer    hover:bg-blue-600 hover:ease-in-out transition hover:scale-105">Total Project
             <h1 className='my-3  font-semibold'>Fetch from db</h1>
           </div>
 
-          <div className="pend-task bg-gray-600 font-bold  p-3 rounded-lg  cursor-pointer  hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Pending task
+          <div className="pend-Project bg-gray-600 font-bold  p-3 rounded-lg  cursor-pointer  hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Pending Project
             <h1 className='my-3 font-semibold'>Fetch from db</h1>
           </div>
 
-          <div className="com-task bg-gray-600  font-bold p-3 rounded-lg cursor-pointer    hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Working on
+          <div className="com-Project bg-gray-600  font-bold p-3 rounded-lg cursor-pointer    hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Working on
             <h1 className='my-3 font-semibold'>Fetch from db</h1>
           </div>
 
-          <div className="com-task bg-gray-600  font-bold p-3 rounded-lg cursor-pointer    hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Completed task
+          <div className="com-Project bg-gray-600  font-bold p-3 rounded-lg cursor-pointer    hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Completed Project
             <h1 className='my-3 font-semibold'>Fetch from db</h1>
           </div>
 
@@ -78,9 +78,9 @@ const Manager_task = () => {
       </div>
 
 
-      {/* Add task */}
+      {/* Add Project */}
       <div onClick={() => { setaddForm(!addForm) }}
-      className="add_task cursor-pointer mt-[30px] p-3 font-bold w-fit rounded-lg bg-gray-600      hover:rounded-[50px] hover:ease-in-out transition hover:scale-105  hover:bg-blue-600 ">Add new task</div>
+        className="add_Project cursor-pointer mt-[30px] p-3 font-bold w-fit rounded-lg bg-gray-600      hover:rounded-[50px] hover:ease-in-out transition hover:scale-105  hover:bg-blue-600 ">Add new Project</div>
       {addForm === true &&
         <div className='Addform absolute backdrop-blur-sm top-[0] h-fit w-[100%]'>
           <form onSubmit={HandleSubmit} className='backdrop-blur-0 flex flex-col items-center bg-gray-600 rounded-lg mt-[5%] w-[50%] mx-auto'>
@@ -102,7 +102,7 @@ const Manager_task = () => {
       }
 
       {/* table */}
-      <div className="table-task-performed"> <h1 className='text-center font-bold text-xl mt-[30px]'>Task List</h1>
+      <div className="table-Project-performed"> <h1 className='text-center font-bold text-xl mt-[30px]'>Project List</h1>
         <table className='mt-[30px] w-full'>
           <thead>
             <tr className='bg-blue-400 h-[50px]'>
@@ -117,7 +117,7 @@ const Manager_task = () => {
           </thead>
 
           <tbody>
-            {Task.map((t, i) => {
+            {Project.map((t, i) => {
               return <tr className='my-2 border-blue-400 h-[50px] border-b-2'>
                 <td className=' text-center p-1'>{i + 1}</td>
                 <td className=' p-1'>{t.Title}</td>
@@ -150,4 +150,4 @@ const Manager_task = () => {
   )
 }
 
-export default Manager_task;
+export default Manager_Project;
