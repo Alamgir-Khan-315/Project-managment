@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import Adduser from '../../Common render/AddUser'
+
+import { IoIosPhonePortrait } from "react-icons/io";
+import { FaRegUser } from "react-icons/fa";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { FaLock } from "react-icons/fa6";
 
 const Manager_Member = () => {
 
@@ -19,6 +25,34 @@ const Manager_Member = () => {
     FetchUser()
   }, [])
 
+  // const addUser = (event) => {
+  //   event.preventDefault();
+  //   axios.post("http://localhost:3001/AddUser", {
+  //     Name,
+  //     Email,
+  //     Number,
+  //     Password,
+  //     Role,
+  //   })
+  //     .then((res) => {
+  //       console.log(res);
+  //       navigate("/");
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  const DelUser = ((Id, name) => {
+    if (window.confirm(`Are to sure you wanna delete ${name}`)) {
+      axios.get(`http://localhost:3001/DelUser/${Id}`)
+        .then(res => {
+          alert("User deleted")
+          // setUser(users.filter(user => user._id !== Id));
+          FetchUser()
+        })
+        .catch(error => console.error('Error deleting user:', error));
+    }
+  })
+
   return (
     <div className='container mx-auto relative'>
       <div className="body mt-[30px] text-center">
@@ -30,21 +64,14 @@ const Manager_Member = () => {
           className="add_members cursor-pointer mt-[70px] p-3 font-bold w-fit rounded-lg bg-gray-600      hover:rounded-[50px] hover:ease-in-out transition hover:scale-105  hover:bg-blue-600 ">Add member</div>
         {addForm === true &&
           <div className='Addform absolute backdrop-blur-sm top-[0] h-fit w-[100%]'>
-            <form className='backdrop-blur-0 flex flex-col items-center bg-gray-600 rounded-lg mt-[5%] w-[50%] mx-auto'>
-
-              <div className="title w-full px-[30px] mt-[10px] relative flex justify-between items-center">
-                <h1 className='font-bold text-2xl pt-[20px]'>Add new member</h1>
-                <div onClick={() => { setaddForm(!addForm) }}
-                  className="btn absolute right-[20px] top-[15px] p-2 px-3 cursor-pointer w-fit rounded-lg bg-red-500 hover:bg-red-600 ">X</div>
+            <div>
+              <div onClick={() => { setaddForm(!addForm) }}
+                className="btn absolute z-10 right-[28%] top-[14%] p-2 px-3 cursor-pointer w-fit rounded-lg bg-red-500 hover:bg-red-600 ">
+                X
               </div>
-
-              <input className='mt-[30px] w-[80%] p-2 rounded-lg bg-gray-700 text-gray-400' type="text" />
-              <input className='mt-[30px] w-[80%] p-2 rounded-lg bg-gray-700' type="text" placeholder='Title' />
-              <textarea className='my-[20px] w-[80%] p-2 rounded-lg bg-gray-700'
-                placeholder='Project details' id="" rows={3}></textarea>
-
-              <button type='submit' className='bg-green-600 p-2 px-5 rounded-lg my-[20px]     hover:ease-in-out transition hover:scale-105 hover:bg-green-700'>Add</button>
-            </form>
+            </div>
+            <Adduser />
+            {FetchUser()}
           </div>
         }
 
@@ -72,7 +99,7 @@ const Manager_Member = () => {
                     <td className='p-1'>
                       <div className="btn flex gap-2">
                         <button className='p-1 rounded-lg w-full text-center bg-green-500 hover:bg-green-600 hover:ease-in-out transition hover:scale-105'>Edit</button>
-                        <button className='p-1 rounded-lg text-center   bg-red-500 hover:bg-red-600 hover:ease-in-out transition hover:scale-105'>Delete</button>
+                        <button onClick={(e) => DelUser(user._id, user.Name)} className='p-1 rounded-lg text-center   bg-red-500 hover:bg-red-600 hover:ease-in-out transition hover:scale-105'>Delete</button>
                       </div>
                     </td>
                   </tr>

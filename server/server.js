@@ -37,16 +37,20 @@ app.post("/login", async (re, res) => {
 })
 
 /////////////////// admin
-app.get('/GetUser', (req, res) => {
+app.get('/GetUser', async (req, res) => {
     AddUserModel.find()
         .then(users => res.json(users))
         .catch(err => res.json(err))
 })
 
-app.post('/DelUser/:id', async (req, res) => {
-    const userid = req.body;
+/////////////////// delete user
+app.get('/DelUser/:id', async (req, res) => {
+    const id = req.params.id;
     try {
-        AddUserModel.deleteOne({ _id: userid })
+        console.log(id)
+        await AddUserModel.findByIdAndDelete(id)
+
+        console.log("User deleted")
         res.send({ status: "ok", data: "deleted" })
     }
     catch (err) { console.log(err) }

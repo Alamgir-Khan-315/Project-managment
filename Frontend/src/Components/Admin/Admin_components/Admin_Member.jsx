@@ -22,9 +22,11 @@ const Admin_Member = () => {
 
   const DelUser = ((Id, name) => {
     if (window.confirm(`Are to sure you wanna delete ${name}`)) {
-      axios.post(`http://localhost:3001/DelUser/${Id}`)
+      axios.get(`http://localhost:3001/DelUser/${Id}`)
         .then(res => {
-          setUser(users.filter(user => user._id !== Id));
+          alert("User deleted")
+          // setUser(users.filter(user => user._id !== Id));
+          FetchUser()
         })
         .catch(error => console.error('Error deleting user:', error));
     }
