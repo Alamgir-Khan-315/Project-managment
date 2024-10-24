@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import Project_Count_bar from '../../Common render/Project_Count_bar'
+
 const Admin_Project = () => {
 
-
-  const ProjectStatus = "Pending";
   const [Project, setProject] = useState([])
-  const [DetailDev, setDetailDev] = useState(false)
 
   const FetchProject = () => {
     axios.get('http://localhost:3001/GetProject')
@@ -21,38 +20,17 @@ const Admin_Project = () => {
     FetchProject()
   }, [])
 
-  const Detail = (id) => {
-    setDetailDev(!DetailDev)
-
+  // Local storage Single project details
+  const SingleProject = (id, title, detail, assign, working, status) => {
+    const ProjectDetails = [id, title, detail, assign, working, status]
+    localStorage.setItem("Project Details", JSON.stringify(ProjectDetails))
   }
-
 
   return (
     <div className='container mx-auto'>
-      <div className="body mt-[30px] text-center">
-        <h1 className='text-2xl font-bold'>Project Menu</h1>
 
-        <div className="Project-box grid grid-cols-2 md:grid-cols-4 gap-[40px] mt-[30px]">
-          <div className="total-Project bg-gray-600  font-bold  p-3 rounded-lg  cursor-pointer    hover:bg-blue-600 hover:ease-in-out transition hover:scale-105">Total Project
-            <h1 className='my-3  font-semibold'>Fetch from db</h1>
-          </div>
-
-          <div className="pend-Project bg-gray-600 font-bold  p-3 rounded-lg  cursor-pointer  hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Pending Project
-            <h1 className='my-3 font-semibold'>Fetch from db</h1>
-          </div>
-
-          <div className="com-Project bg-gray-600  font-bold p-3 rounded-lg cursor-pointer    hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Working on
-            <h1 className='my-3 font-semibold'>Fetch from db</h1>
-          </div>
-
-          <div className="com-Project bg-gray-600  font-bold p-3 rounded-lg cursor-pointer    hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Completed Project
-            <h1 className='my-3 font-semibold'>Fetch from db</h1>
-          </div>
-
-        </div>
-      </div>
-
-
+      {/* count bar */}
+      <Project_Count_bar />
 
       {/* table */}
       <div className="table-Project-performed"> <h1 className='text-center font-bold text-xl mt-[30px]'>Project List</h1>
@@ -65,13 +43,14 @@ const Admin_Project = () => {
               <td className='items-center text-md font-bold p-2 w-[140px]'>Assign by</td>
               <td className='items-center text-md font-bold p-2 w-[140px]'>Woring by</td>
               <td className='items-center text-md font-bold p-2 w-[100px] text-center'>Status</td>
-              <td className='items-center text-md font-bold p-2 w-[100px] text-center'>Details</td>
             </tr>
           </thead>
 
           <tbody>
             {Project.map((t, i) => {
-              return <tr id={t._id} className='relative hover:bg-gray-900 my-2 border-blue-400 h-[50px] border-b-2'>
+              return <tr id={t._id} key="i"
+                onClick={() => { SingleProject(t._id, t.Title, t.Detail, t.Assign_by, t.Working_by, t.Status) }}
+                className='relative hover:bg-gray-900 my-2 border-blue-400 h-[50px] border-b-2'>
                 <td className=' text-center p-1'>{i + 1}</td>
                 <td className=' p-1'>{t.Title}</td>
                 <td className=' p-1'>{t.Detail}</td>
@@ -83,15 +62,6 @@ const Admin_Project = () => {
                   <div className="circle h-[10px] w-[10px] bg-blue-500 rounded-[50px]"></div>{t.Status}</td>}
                 {t.Status === "Done" && <td className='text-center rounded-lg text-green-500 flex items-center gap-2 justify-center mt-3'>
                   <div className="circle h-[10px] w-[10px] bg-green-500 rounded-[50px]"></div>{t.Status}</td>}
-                <td onClick={() => { Detail(id) }} className='p-1 cursor-pointer text-center'>Arrow</td>
-                {
-                  DetailDev === true &&
-                  <div className='h-[100px]'>1
-                    {t.Status === "Pending" && <h1>Project is on pending</h1>}
-                    {t.Status === "Working" && <h1>Project is in working</h1>}
-                    {t.Status === "Done" && <h1>Project has been done</h1>}
-                  </div>
-                }
               </tr>
             })
             }

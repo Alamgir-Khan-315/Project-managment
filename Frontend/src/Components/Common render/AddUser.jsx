@@ -6,17 +6,16 @@ import { FaRegUser } from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FaLock } from "react-icons/fa6";
 
-const AddUser = () => {
+const AddUser = (prop) => {
 
+    const Role = prop.Role
     const [Name, setName] = useState("");
     const [Email, setEmail] = useState("");
     const [Number, setNumber] = useState("");
     const [Password, setPassword] = useState("");
-    const Role = "Member"
 
     const Submit = (event) => {
         event.preventDefault();
-        alert("Clicked");
         axios.post("http://localhost:3001/AddUser", {
             Name,
             Email,
@@ -38,8 +37,7 @@ const AddUser = () => {
             <form onSubmit={Submit} className='backdrop-blur-0 flex flex-col items-center bg-gray-600 rounded-lg mt-[5%] w-[50%] mx-auto'>
 
                 <div className="title w-full px-[30px] mt-[10px] relative flex justify-between items-center">
-                    <h1 className='font-bold text-2xl pt-[20px]'>Add new member</h1>
-
+                    <h1 className='font-bold text-2xl pt-[20px]'>Add new {Role}</h1>
                 </div>
 
                 <div className="email relative mt-7 w-[80%]  hover:bg-gray-600 hover:rounded-lg">

@@ -72,8 +72,8 @@ app.get('/FetchData/:id', async (re, res) => {
 })
 
 /////////////////// Task manager
-app.post('/AddTask', (re, res) => {
-    TaskModel.create(re.body)
+app.post('/AddProject', (req, res) => {
+    TaskModel.create(req.body)
         .then(task => res.json(task))
         .catch(err => res.json(err))
 })
@@ -82,6 +82,18 @@ app.get('/GetProject', (req, res) => {
     TaskModel.find()
         .then(tasks => res.json(tasks))
         .catch(err => res.json(err))
+})
+
+app.get('/DelProject/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        console.log(id)
+        await TaskModel.findByIdAndDelete(id)
+
+        console.log("User deleted")
+        res.send({ status: "ok", data: "deleted" })
+    }
+    catch (err) { console.log(err) }
 })
 
 

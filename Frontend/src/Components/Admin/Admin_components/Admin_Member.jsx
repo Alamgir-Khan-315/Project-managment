@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
+import Adduser from '../../Common render/AddUser'
+
 const Admin_Member = () => {
 
   const [users, setUser] = useState([])
@@ -19,6 +21,11 @@ const Admin_Member = () => {
     FetchUser()
   }, [])
 
+  // user data to local
+  const UserLocal = (id, name, email, role) => {
+    const UserData = [id, name, email, role]
+    localStorage.setItem("User", JSON.stringify(UserData))
+  }
 
   const DelUser = ((Id, name) => {
     if (window.confirm(`Are to sure you wanna delete ${name}`)) {
@@ -39,26 +46,19 @@ const Admin_Member = () => {
         <h1 className='text-2xl font-bold'>User</h1>
 
 
-        {/* Add manager */}
+        {/* Add member */}
         <div onClick={() => { setaddForm(!addForm) }}
-          className="add_members cursor-pointer mt-[30px] p-3 font-bold w-fit rounded-lg bg-gray-600      hover:rounded-[50px] hover:ease-in-out transition hover:scale-105  hover:bg-blue-600 ">Add a manager</div>
+          className="add_members cursor-pointer mt-[70px] p-3 font-bold w-fit rounded-lg bg-gray-600      hover:rounded-[50px] hover:ease-in-out transition hover:scale-105  hover:bg-blue-600 ">Add member</div>
         {addForm === true &&
-          <div className='Addform absolute backdrop-blur-sm top-[0] h-fit md:min-w-[80%]'>
-            <form className='backdrop-blur-0 flex flex-col items-center bg-gray-600 rounded-lg mt-[5%] w-[50%] mx-auto'>
-
-              <div className="title w-full px-[30px] mt-[10px] relative flex justify-between items-center">
-                <h1 className='font-bold text-2xl pt-[20px]'>Add a manager</h1>
-                <div onClick={() => { setaddForm(!addForm) }}
-                  className="btn absolute right-[20px] top-[15px] p-2 px-3 w-fit cursor-pointer rounded-lg bg-red-500 hover:bg-red-600 ">X</div>
+          <div className='Addform absolute backdrop-blur-sm top-[0] h-fit w-[100%]'>
+            <div>
+              <div onClick={() => { setaddForm(!addForm) }}
+                className="btn absolute z-10 right-[28%] top-[14%] p-2 px-3 cursor-pointer w-fit rounded-lg bg-red-500 hover:bg-red-600 ">
+                X
               </div>
-
-              <input className='mt-[30px] w-[80%] p-2 rounded-lg bg-gray-700 text-gray-400' type="text" />
-              <input className='mt-[30px] w-[80%] p-2 rounded-lg bg-gray-700' type="text" placeholder='Title' />
-              <textarea className='my-[20px] w-[80%] p-2 rounded-lg bg-gray-700'
-                placeholder='Project details' id="" rows={3}></textarea>
-
-              <button type='submit' className='bg-green-600 p-2 px-5 rounded-lg my-[20px]     hover:ease-in-out transition hover:scale-105 hover:bg-green-700'>Add </button>
-            </form>
+            </div>
+            <Adduser Role={"Manager"} />
+            {FetchUser()}
           </div>
         }
 
@@ -79,7 +79,9 @@ const Admin_Member = () => {
               <tbody className='text-left'>
                 {users.map((user, i) => {
                   if (user.Role === "Manager") {
-                    return <tr key={user._id} className='my-2 border-blue-400 h-[50px] border-b-2'>
+                    return <tr key="i"
+                      onClick={() => { UserLocal(user._id, user.Name, user.Email, user.Role) }}
+                      className='my-2 border-blue-400 h-[50px] border-b-2'>
                       <td className='p-1'>{i + 1}</td>
                       <td className='p-1'>{user.Name}</td>
                       <td className='p-1'>{user.Email}</td>
@@ -112,7 +114,9 @@ const Admin_Member = () => {
               <tbody className=' text-left'>
                 {users.map((user, i) => {
                   if (user.Role === "Member") {
-                    return <tr key={user._id} className='my-2 border-blue-400 h-[50px] border-b-2'>
+                    return <tr key="i"
+                      onClick={() => { UserLocal(user._id, user.Name, user.Email, user.Role) }}
+                      className='my-2 border-blue-400 h-[50px] border-b-2'>
                       <td className='p-1'>{i + 1}</td>
                       <td className='p-1'>{user.Name}</td>
                       <td className='p-1'>{user.Email}</td>

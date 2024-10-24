@@ -2,11 +2,6 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Adduser from '../../Common render/AddUser'
 
-import { IoIosPhonePortrait } from "react-icons/io";
-import { FaRegUser } from "react-icons/fa";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { FaLock } from "react-icons/fa6";
-
 const Manager_Member = () => {
 
   const [users, setUser] = useState([])
@@ -25,22 +20,7 @@ const Manager_Member = () => {
     FetchUser()
   }, [])
 
-  // const addUser = (event) => {
-  //   event.preventDefault();
-  //   axios.post("http://localhost:3001/AddUser", {
-  //     Name,
-  //     Email,
-  //     Number,
-  //     Password,
-  //     Role,
-  //   })
-  //     .then((res) => {
-  //       console.log(res);
-  //       navigate("/");
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
+  //////////////////////// Del user  //////////////////////////////////
   const DelUser = ((Id, name) => {
     if (window.confirm(`Are to sure you wanna delete ${name}`)) {
       axios.get(`http://localhost:3001/DelUser/${Id}`)
@@ -70,7 +50,7 @@ const Manager_Member = () => {
                 X
               </div>
             </div>
-            <Adduser />
+            <Adduser Role={"Member"} />
             {FetchUser()}
           </div>
         }

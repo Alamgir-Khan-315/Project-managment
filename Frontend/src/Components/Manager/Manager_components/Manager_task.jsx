@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 
+import Project_Count_bar from '../../Common render/Project_Count_bar'
+
 const Manager_Project = () => {
 
   const [addForm, setaddForm] = useState(false)
-  const [userName, setUserName] = useState('');
+  const [Assign_by, setAssign_by] = useState('');
   const [Title, setTitle] = useState("");
   const [Detail, setDetail] = useState("");
   const [Project, setProject] = useState([])
-  const ProjectStatus = "Pending";
+  const Status = "Pending";
+  const Working_by = ""
 
   // user data fetch
   const { id } = useParams();
@@ -17,7 +20,7 @@ const Manager_Project = () => {
     axios.get(`http://localhost:3001/FetchData/${id}`)
       .then((res) => {
         console.log(res.data)
-        setUserName(res.data.Name)
+        setAssign_by(res.data.Name)
       })
       .catch(err => console.log(err))
   }, [id])
@@ -27,12 +30,13 @@ const Manager_Project = () => {
     axios.post("http://localhost:3001/AddProject", {
       Title,
       Detail,
-      userName,
-      ProjectStatus
+      Assign_by,
+      Working_by,
+      Status
     })
       .then((res) => {
         console.log(res);
-        alert("Success")
+        alert("Project added")
         setaddForm(!addForm)
         FetchProject()
       })
@@ -52,30 +56,29 @@ const Manager_Project = () => {
     FetchProject()
   }, [])
 
+  const DelProject = ((Id, name) => {
+    if (window.confirm(`Are to sure you wanna delete ${name}`)) {
+      axios.get(`http://localhost:3001/DelProject/${Id}`)
+        .then(res => {
+          alert("User deleted")
+          // setUser(users.filter(user => user._id !== Id));
+          FetchProject()
+        })
+        .catch(error => console.error('Error deleting user:', error));
+    }
+  })
+
+  // Local storage Single project details
+  const SingleProject = (id, title, detail, assign, working, status) => {
+    const ProjectDetails = [id, title, detail, assign, working, status]
+    localStorage.setItem("Project Details", JSON.stringify(ProjectDetails))
+  }
+
   return (
     <div className='container mx-auto relative'>
-      <div className="body mt-[30px] text-center">
-        <h1 className='text-2xl font-bold'>Project Menu</h1>
 
-        <div className="Project-box grid grid-cols-2 md:grid-cols-4 gap-[40px] mt-[30px]">
-          <div className="total-Project bg-gray-600  font-bold  p-3 rounded-lg  cursor-pointer    hover:bg-blue-600 hover:ease-in-out transition hover:scale-105">Total Project
-            <h1 className='my-3  font-semibold'>Fetch from db</h1>
-          </div>
-
-          <div className="pend-Project bg-gray-600 font-bold  p-3 rounded-lg  cursor-pointer  hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Pending Project
-            <h1 className='my-3 font-semibold'>Fetch from db</h1>
-          </div>
-
-          <div className="com-Project bg-gray-600  font-bold p-3 rounded-lg cursor-pointer    hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Working on
-            <h1 className='my-3 font-semibold'>Fetch from db</h1>
-          </div>
-
-          <div className="com-Project bg-gray-600  font-bold p-3 rounded-lg cursor-pointer    hover:bg-blue-600 hover:ease-in-out hover:transition hover:scale-105">Completed Project
-            <h1 className='my-3 font-semibold'>Fetch from db</h1>
-          </div>
-
-        </div>
-      </div>
+      {/* count bar */}
+      <Project_Count_bar />
 
 
       {/* Add Project */}
@@ -91,7 +94,7 @@ const Manager_Project = () => {
                 className="btn absolute right-[20px] top-[15px] p-2 px-3 w-fit rounded-lg bg-red-500 hover:bg-red-600 ">X</div>
             </div>
 
-            <input className='mt-[30px] w-[80%] p-2 rounded-lg bg-gray-700 text-gray-400' type="text" value={userName} readOnly />
+            <input className='mt-[30px] w-[80%] p-2 rounded-lg bg-gray-700 text-gray-400' type="text" value={Assign_by} readOnly />
             <input onChange={(e) => setTitle(e.target.value)} className='mt-[30px] w-[80%] p-2 rounded-lg bg-gray-700' type="text" placeholder='Title' />
             <textarea className='my-[20px] w-[80%] p-2 rounded-lg bg-gray-700'
               onChange={(e) => setDetail(e.target.value)} placeholder='Project details' id="" rows={3}></textarea>
@@ -118,7 +121,8 @@ const Manager_Project = () => {
 
           <tbody>
             {Project.map((t, i) => {
-              return <tr className='my-2 border-blue-400 h-[50px] border-b-2'>
+              return <tr key="i" className='my-2 border-blue-400 h-[50px] border-b-2'
+                onClick={() => { SingleProject(t._id, t.Title, t.Detail, t.Assign_by, t.Working_by, t.Status) }}>
                 <td className=' text-center p-1'>{i + 1}</td>
                 <td className=' p-1'>{t.Title}</td>
                 <td className=' p-1'>{t.Detail}</td>
@@ -135,7 +139,7 @@ const Manager_Project = () => {
                 <td className='p-1'>
                   <div className="flex gap-2">
                     <div className="p-2 bg-green-500 rounded-lg cursor-pointer hover:bg-green-700 hover:ease-in-out transition hover:scale-105">Edit</div>
-                    <div className="p-2 bg-red-500 rounded-lg cursor-pointer hover:bg-red-700 hover:ease-in-out transition hover:scale-105 ">Delete</div>
+                    <div onClick={(e) => DelProject(t._id, t.Title)} className="p-2 bg-red-500 rounded-lg cursor-pointer hover:bg-red-700 hover:ease-in-out transition hover:scale-105 ">Delete</div>
                   </div>
                 </td>
               </tr>
